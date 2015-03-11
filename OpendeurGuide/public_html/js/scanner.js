@@ -9,9 +9,10 @@ window.onload = function () {
             animateMenu();
         }
     },function (error) {
-                //show read errors 
+         alert(error);
     }, function (videoError) {
         //the video stream could be opened
+        alert("video stream could be opened");
     }
     );
 
