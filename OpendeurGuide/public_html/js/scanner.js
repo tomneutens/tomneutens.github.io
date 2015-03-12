@@ -33,7 +33,7 @@ window.onload = function () {
         }, function (videoError) {
             //the video stream could be opened
             alert("video stream could be opened");
-        }, videoSources[0]
+        }, videoSources[videoSources.length-1]
         );
     }
 
