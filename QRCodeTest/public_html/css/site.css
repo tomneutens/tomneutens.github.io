@@ -35,3 +35,8 @@ and open the template in the editor.
     left:0px;
     right:0px;
 }
+
+#qr-canvas{
+    position:fixed;
+    top:-1000px;
+}
