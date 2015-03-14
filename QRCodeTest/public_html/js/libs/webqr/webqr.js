@@ -159,13 +159,13 @@ function animateMenu() {
         menu_open = true;
         $(".scan_menu").animate(
                 {
-                    top: '+=300'
+                    top: '+=500'
                 });
     } else {
         menu_open = false;
         $(".scan_menu").animate(
                 {
-                    top: '-=300'
+                    top: '-=500'
                 });
     }
 }
