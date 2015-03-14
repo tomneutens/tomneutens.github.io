@@ -9,8 +9,14 @@ var webkit = false;
 var moz = false;
 var v = null;
 var menu_open = false;
+var videoSources = [];
+var videoSource = null;
+var currentSourceIndex = 0;
 
 var vidhtml = '<video id="v" width="300" height="300" autoplay></video>';
+
+var readerContainer = document.getElementById("reader_container");
+readerContainer.onclick = nextSource;
 
 function initCanvas(w, h)
 {
@@ -23,6 +29,29 @@ function initCanvas(w, h)
     gCtx.clearRect(0, 0, w, h);
 }
 
+function nextSource(){
+    currentSourceIndex = (currentSourceIndex++)%videoSources.lenght;
+    videoSource = videoSources[currentSourceIndex];
+    setwebcam();
+}
+
+function getVideoSources(){
+    MediaStreamTrack.getSources(function (sourceInfos) {
+
+        for (var i = 0; i !== sourceInfos.length; ++i) {
+            var sourceInfo = sourceInfos[i];
+            if (sourceInfo.kind === 'video') {
+                console.log("found video source");
+                console.log(sourceInfo);
+                videoSources.push(sourceInfo.id);
+            } else {
+                console.log('Some other kind of source: ', sourceInfo);
+            }
+        }
+        videoSource = videoSources[0];
+        load();
+    });
+}
 
 function captureToCanvas() {
     if (gUM)
@@ -59,7 +88,7 @@ function read(data)
     //a is de data die werd gescand
     //alert(data);
     scrollToAnchor(data);
-    animateMenu();
+    animateMenu(); 
 }
 
 function isCanvasSupported() {
@@ -86,7 +115,7 @@ function error(error) {
 
 function load()
 {
-    if (isCanvasSupported())
+    if (isCanvasSupported() && videoSource !== null)
     {
         initCanvas(800, 600);
         qrcode.callback = read;
@@ -103,13 +132,13 @@ function setwebcam()
 
     //stelt het lezen van de video stream in
     if (n.getUserMedia) {
-        n.getUserMedia({video: true, audio: false, width:300, height:300}, success, error);
+        n.getUserMedia({video: true, audio: false, width:300, height:300, sourceId:videoSource}, success, error);
     } else if (n.webkitGetUserMedia) {
         webkit = true;
-        n.webkitGetUserMedia({video: true, audio: false, width:300, height:300}, success, error);
+        n.webkitGetUserMedia({video: true, audio: false, width:300, height:300, sourceId:videoSource}, success, error);
     } else if (n.mozGetUserMedia) {
         moz = true;
-        n.mozGetUserMedia({video: true, audio: false, width:300, height:300}, success, error);
+        n.mozGetUserMedia({video: true, audio: false, width:300, height:300, sourceId:videoSource}, success, error);
     }
 }
 
