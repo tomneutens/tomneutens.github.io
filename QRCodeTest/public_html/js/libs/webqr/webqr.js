@@ -15,8 +15,8 @@ var currentSourceIndex = 0;
 
 var vidhtml = '<video id="v" width="300" height="300" autoplay></video>';
 
-var readerContainer = document.getElementById("reader_container");
-readerContainer.onclick = nextSource;
+//var readerContainer = document.getElementById("reader_container");
+//readerContainer.onclick = nextSource;
 
 function initCanvas(w, h)
 {
@@ -38,9 +38,12 @@ function nextSource(){
 function getVideoSources(){
     MediaStreamTrack.getSources(function (sourceInfos) {
 
+        var environmentCamera = null;
         for (var i = 0; i !== sourceInfos.length; ++i) {
             var sourceInfo = sourceInfos[i];
             if (sourceInfo.kind === 'video') {
+                if (sourceInfo.facing === "environment")
+                    environmentCamera = sourceInfo.id;
                 console.log("found video source");
                 console.log(sourceInfo);
                 videoSources.push(sourceInfo.id);
@@ -48,7 +51,12 @@ function getVideoSources(){
                 console.log('Some other kind of source: ', sourceInfo);
             }
         }
-        videoSource = videoSources[0];
+        if (environmentCamera !== null){
+            videoSource = environmentCamera;
+        }else{
+            videoSource = videoSources[0];
+        }
+        
         load();
     });
 }
