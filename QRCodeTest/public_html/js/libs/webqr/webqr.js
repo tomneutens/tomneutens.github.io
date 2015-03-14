@@ -140,13 +140,13 @@ function setwebcam()
 
     //stelt het lezen van de video stream in
     if (n.getUserMedia) {
-        n.getUserMedia({video: {mandatory:{maxHeight:240, maxWidth:320},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300}, success, error);
+        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300}, success, error);
     } else if (n.webkitGetUserMedia) {
         webkit = true;
-        n.webkitGetUserMedia({video: {mandatory:{maxHeight:240, maxWidth:320},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300, sourceId:videoSource}, success, error);
+        n.webkitGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300, sourceId:videoSource}, success, error);
     } else if (n.mozGetUserMedia) {
         moz = true;
-        n.mozGetUserMedia({video: {mandatory:{maxHeight:240, maxWidth:320},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300, sourceId:videoSource}, success, error);
+        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300, sourceId:videoSource}, success, error);
     }
 }
 
