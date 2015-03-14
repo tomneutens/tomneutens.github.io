@@ -13,7 +13,7 @@ var videoSources = [];
 var videoSource = null;
 var currentSourceIndex = 0;
 
-var vidhtml = '<video id="v" width="300" height="300" autoplay></video>';
+var vidhtml = '<video id="v" width="250" height="250" autoplay></video>';
 
 //var readerContainer = document.getElementById("reader_container");
 //readerContainer.onclick = nextSource;
@@ -159,13 +159,13 @@ function animateMenu() {
         menu_open = true;
         $(".scan_menu").animate(
                 {
-                    top: '+=400'
+                    top: '+=300'
                 });
     } else {
         menu_open = false;
         $(".scan_menu").animate(
                 {
-                    top: '-=400'
+                    top: '-=300'
                 });
     }
 }
