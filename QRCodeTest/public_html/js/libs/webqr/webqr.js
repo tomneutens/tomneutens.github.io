@@ -175,3 +175,6 @@ function scrollToAnchor(aid) {
     $('html,body').animate({scrollTop: aTag.offset().top}, 'slow');
 }
 
+window.onload = function(){
+    getVideoSources();
+};
