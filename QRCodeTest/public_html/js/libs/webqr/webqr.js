@@ -105,7 +105,7 @@ function isCanvasSupported() {
 }
 function success(stream) {
     if (webkit) {
-        v.src = window.webkitURL.createObjectURL(stream);
+        v.src = window.URL.createObjectURL(stream);
     } else if (moz) {
         v.mozSrcObject = stream;
         v.play();
@@ -140,13 +140,13 @@ function setwebcam()
 
     //stelt het lezen van de video stream in
     if (n.getUserMedia) {
-        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300}, success, error);
+        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
     } else if (n.webkitGetUserMedia) {
         webkit = true;
-        n.webkitGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300}, success, error);
+        n.webkitGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
     } else if (n.mozGetUserMedia) {
         moz = true;
-        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false, width:300, height:300}, success, error);
+        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
     }
 }
 
