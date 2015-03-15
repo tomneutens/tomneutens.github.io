@@ -66,19 +66,19 @@ function captureToCanvas() {
     {
         if (menu_open) {
             try {
-                gCtx.drawImage(v, 0, 0, 300, 300);
+                gCtx.drawImage(v, 0, 0, 320, 240);
                 try {
                     qrcode.decode();
                 }
                 catch (e) {
                     console.log(e);
-                    setTimeout(captureToCanvas, 500);
+                    setTimeout(captureToCanvas, 1000);
                 }
                 ;
             }
             catch (e) {
                 console.log(e);
-                setTimeout(captureToCanvas, 500);
+                setTimeout(captureToCanvas, 1000);
             }
             ;
         }
