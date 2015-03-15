@@ -72,13 +72,13 @@ function captureToCanvas() {
                 }
                 catch (e) {
                     console.log(e);
-                    setTimeout(captureToCanvas, 1000);
+                    setTimeout(captureToCanvas, 500);
                 }
                 ;
             }
             catch (e) {
                 console.log(e);
-                setTimeout(captureToCanvas, 1000);
+                setTimeout(captureToCanvas, 500);
             }
             ;
         }
@@ -140,13 +140,13 @@ function setwebcam()
 
     //stelt het lezen van de video stream in
     if (n.getUserMedia) {
-        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240, minFrameRate:30},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
     } else if (n.webkitGetUserMedia) {
         webkit = true;
         n.webkitGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240, minFrameRate:30},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
     } else if (n.mozGetUserMedia) {
         moz = true;
-        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240, minFrameRate:30},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
     }
 };
 
