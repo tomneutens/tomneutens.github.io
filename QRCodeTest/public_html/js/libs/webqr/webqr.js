@@ -66,7 +66,7 @@ function captureToCanvas() {
     {
         if (menu_open) {
             try {
-                gCtx.drawImage(v, 0, 0, 320, 240);
+                gCtx.drawImage(v, 0, 0, 300, 300);
                 try {
                     qrcode.decode();
                 }
@@ -140,13 +140,13 @@ function setwebcam()
 
     //stelt het lezen van de video stream in
     if (n.getUserMedia) {
-        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[/*{sourceId:videoSource},*/ { facingMode: "user" }]}, audio: false}, success, error);
     } else if (n.webkitGetUserMedia) {
         webkit = true;
-        n.webkitGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.webkitGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[/*{sourceId:videoSource},*/ { facingMode: "user" }]}, audio: false}, success, error);
     } else if (n.mozGetUserMedia) {
         moz = true;
-        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[/*{sourceId:videoSource},*/ { facingMode: "user" }]}, audio: false}, success, error);
     }
 };
 
