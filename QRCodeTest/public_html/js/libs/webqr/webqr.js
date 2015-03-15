@@ -143,7 +143,7 @@ function setwebcam()
         n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
     } else if (n.webkitGetUserMedia) {
         webkit = true;
-        n.webkitGetUserMedia({video: {/*mandatory:{maxHeight:320, maxWidth:240},*/optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.webkitGetUserMedia({video: true/*{mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}*/, audio: false}, success, error);
     } else if (n.mozGetUserMedia) {
         moz = true;
         n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
