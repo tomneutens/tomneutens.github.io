@@ -29,13 +29,13 @@ function initCanvas(w, h)
     gCtx.clearRect(0, 0, w, h);
 }
 
-function nextSource(){
-    currentSourceIndex = (currentSourceIndex++)%videoSources.lenght;
+function nextSource() {
+    currentSourceIndex = (currentSourceIndex++) % videoSources.lenght;
     videoSource = videoSources[currentSourceIndex];
     setwebcam();
 }
 
-function getVideoSources(){
+function getVideoSources() {
     MediaStreamTrack.getSources(function (sourceInfos) {
 
         var environmentCamera = null;
@@ -51,12 +51,12 @@ function getVideoSources(){
                 console.log('Some other kind of source: ', sourceInfo);
             }
         }
-        if (environmentCamera !== null){
+        if (environmentCamera !== null) {
             videoSource = environmentCamera;
-        }else{
+        } else {
             videoSource = videoSources[0];
         }
-        
+
         load();
     });
 }
@@ -95,8 +95,14 @@ function read(data)
     //hier komt de code die opgeroepen wordt als er een code gescand is
     //a is de data die werd gescand
     //alert(data);
-    scrollToAnchor(data);
-    animateMenu(); 
+    var hashIndex = data.indexOf("#");
+    if (hashIndex >= 0){
+        scrollToAnchor(data.substring(hashIndex + 1));
+        animateMenu();
+    }else{
+       scrollToAnchor(data);
+        animateMenu(); 
+    }
 }
 
 function isCanvasSupported() {
@@ -140,15 +146,16 @@ function setwebcam()
 
     //stelt het lezen van de video stream in
     if (n.getUserMedia) {
-        n.getUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240, minFrameRate:30},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.getUserMedia({video: {mandatory: {maxHeight: 320, maxWidth: 240, minFrameRate: 30}, optional: [{sourceId: videoSource}]}, audio: false}, success, error);
     } else if (n.webkitGetUserMedia) {
         webkit = true;
-        n.webkitGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240, minFrameRate:30},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.webkitGetUserMedia({video: {mandatory: {maxHeight: 320, maxWidth: 240, minFrameRate: 30}, optional: [{sourceId: videoSource}]}, audio: false}, success, error);
     } else if (n.mozGetUserMedia) {
         moz = true;
-        n.mozGetUserMedia({video: {mandatory:{maxHeight:320, maxWidth:240, minFrameRate:30},optional:[{sourceId:videoSource}]}, audio: false}, success, error);
+        n.mozGetUserMedia({video: {mandatory: {maxHeight: 320, maxWidth: 240, minFrameRate: 30}, optional: [{sourceId: videoSource}]}, audio: false}, success, error);
     }
-};
+}
+;
 
 $("#scan_button").click(function () {
     animateMenu();
@@ -175,6 +182,9 @@ function scrollToAnchor(aid) {
     $('html,body').animate({scrollTop: aTag.offset().top}, 'slow');
 }
 
-window.onload = function(){
-    getVideoSources();
+window.onload = function () {
+    if (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+        getVideoSources();
+        $("#scan_button").show();
+    }
 };

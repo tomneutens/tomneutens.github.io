@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 #scan_button{
+    display: none;
     width: 70px;
     height: 70px;
     position: fixed;
